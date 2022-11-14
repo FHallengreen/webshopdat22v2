@@ -2,6 +2,7 @@ package com.example.webshopdat22v2.repository;
 
 import com.example.webshopdat22v2.model.Product;
 
+import com.example.webshopdat22v2.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -26,9 +27,8 @@ public class ProductRepository {
         List<Product> productList = new LinkedList<>();
 
         try {
-            Connection conn = DriverManager.getConnection(db_url, uid, pwd);
-                    //"jdbc:mysql://localhost:3306/webshop",
-                    //"webshop_dat22v2", "DetErSnartJul!");
+            Connection conn = ConnectionManager.getConnection(db_url, uid, pwd);
+
             PreparedStatement psts = conn.prepareStatement("SELECT * from product");
             ResultSet resultSet = psts.executeQuery();
 
@@ -53,9 +53,7 @@ public class ProductRepository {
 
     public void addProduct(Product newProduct) {
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/webshop",
-                    "root", "qJiw03K2zwJD");
+            Connection conn = ConnectionManager.getConnection(db_url, uid, pwd);
             String queryCreate = "INSERT INTO product (name, price) VALUES (?, ?)";
             PreparedStatement psts = conn.prepareStatement(queryCreate);
 
@@ -79,9 +77,7 @@ public class ProductRepository {
         product.setId(id);
 
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/webshop",
-                    "root", "qJiw03K2zwJD");
+            Connection conn = ConnectionManager.getConnection(db_url, uid, pwd);
             String queryCreate = "SELECT * FROM product WHERE id=?";
             PreparedStatement psts = conn.prepareStatement(queryCreate);
 
@@ -108,9 +104,7 @@ public class ProductRepository {
 
     public void updateProduct(Product product){
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/webshop",
-                    "root", "qJiw03K2zwJD");
+            Connection conn = ConnectionManager.getConnection(db_url, uid, pwd);
             String queryCreate = "UPDATE product " +
                     "SET name=?, price=? WHERE id=?";
             PreparedStatement psts = conn.prepareStatement(queryCreate);
@@ -132,9 +126,7 @@ public class ProductRepository {
 
     public void deleteProductById(int sletId){
         try {
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/webshop",
-                    "root", "qJiw03K2zwJD");
+            Connection conn = ConnectionManager.getConnection(db_url, uid, pwd);
             String queryCreate = "DELETE FROM product WHERE id=?";
             PreparedStatement psts = conn.prepareStatement(queryCreate);
 
