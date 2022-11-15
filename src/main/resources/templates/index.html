@@ -7,6 +7,10 @@
 <body>
 
     <h1>Produktliste</h1>
+    <h2 th:if="${session.containsKey('username')}" th:text="${session.username}">Velkommen</h2>
+    <form action="/cookieset">
+        <button type="submit" >Login</button>
+    </form>
     <div th:each="p : ${products}">
         <span th:text="${p.id}">id</span>
         <span th:text="${p.name}">navn</span>
@@ -14,5 +18,8 @@
         <span><a th:href="@{'/update/' + ${p.id}}">Opdater</a></span>
         <span><a th:href="@{'/delete/' + ${p.id}}">Delete</a></span>
     </div>
+    <form action="/cookieinvalidate">
+        <button type="submit" >Logout</button>
+    </form>
 </body>
 </html>

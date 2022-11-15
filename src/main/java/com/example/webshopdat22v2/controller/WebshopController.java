@@ -18,8 +18,9 @@ public class WebshopController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         model.addAttribute("products", productRepository.getAll());
+        session.getAttribute("username");
         return "index";
     }
 
@@ -65,7 +66,7 @@ public class WebshopController {
     @GetMapping("/cookieset")
     public String setCookie(HttpSession session) {
         session.setAttribute("username", "Arne-nougatgren");
-        return "CookieDemo";
+        return "redirect:/";
     }
 
 
@@ -74,13 +75,13 @@ public class WebshopController {
         if (session.getAttribute("username") != null) {
             System.out.println(session.getAttribute("username"));
         }
-        return "CookieDemo";
+        return "redirect:/";
     }
 
     @GetMapping("/cookieinvalidate")
         public String invalidateCookie(HttpSession session){
             session.invalidate();
-            return "CookieDemo";
+            return "redirect:/";
         }
     }
 
